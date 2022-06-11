@@ -55,7 +55,7 @@ def btn_clicked():
 
 def know_more_clicked(event):
     instructions = (
-        "https://github.com/trongtinh7727")
+        "https://github.com/trongtinh7727/elearning-ability-tool/issues")
     webbrowser.open_new_tab(instructions)
 
 

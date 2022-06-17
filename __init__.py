@@ -134,8 +134,6 @@ def login_token(event):
         bg="#FFFFFF", fg="black", cursor="hand2")
     loginBY.place(x=557, y=200+60+60)
     loginBY.bind('<Button-1>', restart_program)
-    tk.messagebox.showinfo(
-        "Success!", f"Cai nay khum cho sai!.")
 
 
 if __name__ == '__main__':

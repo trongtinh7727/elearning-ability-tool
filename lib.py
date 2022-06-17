@@ -1,5 +1,3 @@
-import pickle
-import pprint
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,10 +6,10 @@ from selenium.webdriver.support import expected_conditions as ec
 import time
 
 
-def loginCookie(driver, cookies):
+def loginCookie(driver):
     driver.get('https://elearning-ability.tdtu.edu.vn/')
-    # f = open("cookies.json")
-    cookies = json.loads(cookies)
+    f = open("cookies.json")
+    cookies = json.load(f)
     cookies = cookies['cookies']
 
     for cookie in cookies:

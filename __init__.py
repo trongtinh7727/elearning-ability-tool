@@ -1,4 +1,5 @@
 __version__ = '0.1.0'
+from time import sleep
 import webbrowser
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,6 +12,7 @@ import tkinter.messagebox
 import tkinter.filedialog
 from pathlib import Path
 import lib as account
+import json
 window = tk.Tk()
 # Path to asset files for this GUI window.
 ASSETS_PATH = Path(__file__).resolve().parent / "assets"
@@ -53,6 +55,27 @@ def btn_clicked():
         "Success!", f"Successfully!.")
 
 
+def btn_cookie():
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {
+        "profile.managed_default_content_settings.images": 1
+    }
+    chrome_options.add_experimental_option("prefs", prefs)
+    driver = webdriver.Chrome('./Chromedriver', options=chrome_options)
+    url = class_entry.get()
+
+    if not url:
+        tk.messagebox.showerror(
+            title="Empty Fields!", message="Please enter URL.")
+        return
+    account.loginCookie(driver)
+    sleep(0.5)
+    account.lessonSkip(driver, url)
+
+    tk.messagebox.showinfo(
+        "Success!", f"Successfully!.")
+
+
 def know_more_clicked(event):
     instructions = (
         "https://github.com/trongtinh7727/elearning-ability-tool/issues")
@@ -68,7 +91,49 @@ def make_label(master, x, y, h, w, *args, **kwargs):
     return label
 
 
+def destroy():
+    canvas.delete('all')
+    generate_btn.destroy()
+    username_entry.destroy()
+    password_entry.destroy()
+    loginBY.destroy()
+
+
+def restart_program(event):
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
+
+
 def login_token(event):
+    destroy()
+    canvas.place(x=0, y=0)
+    canvas.create_rectangle(431, 0, 431 + 431, 0 + 519,
+                            fill="#FCFCFC", outline="")
+    canvas.create_rectangle(40, 160, 40 + 60, 160 + 5,
+                            fill="#FCFCFC", outline="")
+
+    canvas.create_text(
+        490.0, 156.0+60, text="Class URL", fill="#515486",
+        font=("Arial-BoldMT", int(13.0)), anchor="w")
+
+    canvas.create_text(
+        646.5, 428.5+60, text="Generate",
+        fill="#FFFFFF", font=("Arial-BoldMT", int(13.0)))
+    canvas.create_text(
+        573.5, 88.0, text="Enter the details.",
+        fill="#515486", font=("Arial-BoldMT", int(22.0)))
+
+    generate_btn = tk.Button(
+        image=generate_btn_img, borderwidth=0, highlightthickness=0,
+        command=btn_cookie, relief="flat")
+    class_entry.place(x=490.0, y=137+25+60, width=321.0, height=35)
+    generate_btn.place(x=557, y=200+60, width=180, height=55)
+
+    loginBY = tk.Label(
+        text="Click here for login by account.",
+        bg="#FFFFFF", fg="black", cursor="hand2")
+    loginBY.place(x=557, y=200+60+60)
+    loginBY.bind('<Button-1>', restart_program)
     tk.messagebox.showinfo(
         "Success!", f"Cai nay khum cho sai!.")
 

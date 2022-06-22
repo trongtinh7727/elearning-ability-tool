@@ -2,17 +2,12 @@ __version__ = '0.1.0'
 from time import sleep
 import webbrowser
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 import sys
 import os
 import tkinter as tk
-import tkinter.messagebox
 import tkinter.filedialog
 from pathlib import Path
 import lib as account
-import json
 window = tk.Tk()
 # Path to asset files for this GUI window.
 ASSETS_PATH = Path(__file__).resolve().parent / "assets"
@@ -30,7 +25,8 @@ def btn_clicked():
         "profile.managed_default_content_settings.images": 1
     }
     chrome_options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome('./Chromedriver', options=chrome_options)
+    driver = webdriver.Chrome(
+        executable_path="C:\elearning_ability_tool\chromedriver.exe", options=chrome_options)
 
     user = username_entry.get()
     pwd = "'" + password_entry.get() + "'"
@@ -61,7 +57,8 @@ def btn_cookie():
         "profile.managed_default_content_settings.images": 1
     }
     chrome_options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome('./Chromedriver', options=chrome_options)
+    driver = webdriver.Chrome(
+        executable_path="C:\elearning_ability_tool\chromedriver.exe", options=chrome_options)
     url = class_entry.get()
 
     if not url:

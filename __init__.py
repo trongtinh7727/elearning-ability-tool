@@ -2,10 +2,10 @@ __version__ = '0.1.0'
 from time import sleep
 import webbrowser
 from selenium import webdriver
+import tkinter.messagebox
 import sys
 import os
 import tkinter as tk
-import tkinter.filedialog
 from pathlib import Path
 import lib as account
 window = tk.Tk()
@@ -45,7 +45,10 @@ def btn_clicked():
             title="Empty Fields!", message="Please enter URL.")
         return
     account.login(driver, user, pwd)
-    account.lessonSkip(driver, url)
+
+    toatl_lesson = account.get_lesson(driver, url)
+    for i in range(1, toatl_lesson+1):
+        toatl_lesson = account.get_lesson(driver, url)
 
     tk.messagebox.showinfo(
         "Success!", f"Successfully!.")
@@ -67,7 +70,7 @@ def btn_cookie():
         return
     account.loginCookie(driver)
     sleep(0.5)
-    account.lessonSkip(driver, url)
+    account.get_lesson(driver, url)
 
     tk.messagebox.showinfo(
         "Success!", f"Successfully!.")

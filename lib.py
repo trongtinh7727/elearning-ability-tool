@@ -119,7 +119,7 @@ def sloveQ(driver, number, ques, quiz_url, key, doc):
     if int(score) == number:
         key[ques] = answer
         print("Done: "+ques)
-        post_key(ques+"_"+answer)
+        post_key(ques.replace('\\', "%%2f")+"_"+answer.replace('\\', "%%2f"))
         write_key(key)
         return True
     else:
